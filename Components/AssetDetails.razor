@@ -1,0 +1,29 @@
+﻿@using WT_Lab.Domain
+@using WT_Lab.Blazor.Services
+
+@if (Asset != null)
+{
+    <div class="card mt-5" style="width: 18rem;">
+        <img src="@Asset.Photo" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">@Asset.Name</h5>
+            <p class="card-text">@Asset.Description</p>
+            <h5>
+                <span class="badge bg-secondary">
+                    Инвентарный номер: @Asset.InvNumber
+                </span>
+            </h5>
+            <h5>
+                <span class="badge bg-secondary">
+                    Стоимость: @Asset.Price
+                </span>
+            </h5>
+        </div>
+    </div>
+}
+@code {
+    [Parameter]
+    public Asset Asset { get; set; }
+    [Parameter]
+    public EventCallback<Asset> AssetChanged { get; set; }
+}

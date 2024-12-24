@@ -1,0 +1,25 @@
+﻿@page "/assets"
+@rendermode InteractiveServer
+@using WT_Lab.Blazor.Services
+@using WT_Lab.Domain
+@using WT_Lab.Blazor.Components
+<h3>Активы</h3>
+<CascadingValue Value="AssetService">
+    <AssetList AssetSelected="ShowDetails" />
+</CascadingValue>
+<AssetDetails Asset="SelectedAsset" />
+@code {
+    [Inject] IAssetService<Asset> AssetService { get; set; }
+    [Parameter]
+    public Asset SelectedAsset { get; set; }
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await AssetService.GetAssets();
+    }
+    
+    void ShowDetails(int id)
+    {
+        SelectedAsset = AssetService.Assets.First(d => d.ID == id);
+    }
+}
