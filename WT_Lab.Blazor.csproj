@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WT_Lab.Domain\WT_Lab.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,52 @@
+﻿@page "/ListDemo"
+@using WT_Lab.Blazor.Services
+@using WT_Lab.Domain
+@rendermode InteractiveServer
+@inject IAssetService<Asset> AssetService
+@implements IDisposable
+
+<h3>Активы</h3>
+@if (AssetService.Assets != null && AssetService.Assets.Count()!=0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in AssetService.Assets)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>
+                        @* <button class="btn btn-outline-dark" @onclick="@(()=>OnAssetSelected(item.ID))">
+                            Подробно
+                        </button> *@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+@code {
+    // [CascadingParameter]
+    // public IAssetService<Asset> AssetService { get; set; }
+    // [Parameter]
+    // public EventCallback<int> AssetSelected { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        AssetService.ListChanged += StateHasChanged;
+        await AssetService.GetAssets();
+    }
+    // public async void OnAssetSelected(int id)
+    // {
+    //     await AssetSelected.InvokeAsync(id);
+    // }
+    public void Dispose()
+    {
+        AssetService.ListChanged -= StateHasChanged;
+    }
+}
