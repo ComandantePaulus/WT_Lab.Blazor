@@ -4,10 +4,13 @@
 @using WT_Lab.Domain
 @using WT_Lab.Blazor.Components
 <h3>Активы</h3>
+
 <CascadingValue Value="AssetService">
     <AssetList AssetSelected="ShowDetails" />
+    <Pager />
 </CascadingValue>
 <AssetDetails Asset="SelectedAsset" />
+
 @code {
     [Inject] IAssetService<Asset> AssetService { get; set; }
     [Parameter]
